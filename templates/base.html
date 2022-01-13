@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+    <title>Химчистка - {{title}}</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header>
+    <ul class="header_menu">
+        <li><a href="/">Главная</a></li>
+        <li><a href="/users">Работники</a></li>
+        <li><a href="/clients">Клиенты</a></li>
+        <li><a href="/orders">Заказы</a></li>
+
+        {% if session.get('role') == 3 %}
+        <li class="bg"></li>
+        <li><a href="/types">Типы вещей</a></li>
+        <li><a href="/cleanings">Типы химчисток</a></li>
+        <li><a href="/stats">Статистика</a></li>
+        {% endif %}
+
+        {% if session.loggedin %}
+        <li class="bg"></li>
+        <li><u>{{ session.username }}</u><a href="/logout">Выйти</a></li>
+        {% else %}
+        <li class="bg"></li>
+        <li><a href="/login">Авторизация</a></li>
+        {% endif %}
+    </ul>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class=flashes>
+        <h2>Уведомления</h2>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
+</header>
+
+<div id="content">
+    {% block content %}{% endblock %}
+</div>
+</body>
+</html>

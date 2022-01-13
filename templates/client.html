@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="navigation_div">
+    <ul>
+        <li><a href="/users">< Назад</a></li>
+    </ul>
+</div>
+
+<div class="object_info">
+    <table class="info_table">
+        <tr>
+            <td>Номер</td>
+            <td>{{u[0]}}</td>
+        </tr>
+        <tr>
+            <td>Логин</td>
+            <td>{{u[1]}}</td>
+        </tr>
+        <tr>
+            <td>ФИО</td>
+            <td>{{u[3]}}</td>
+        </tr>
+        <tr>
+            <td>Роль</td>
+            <td>{{u[7]}}</td>
+        </tr>
+        <tr>
+            <td>Магазин</td>
+            <td>{{u[9]}}</td>
+        </tr>
+    </table>
+
+</div>
+
+<a href="/users/rm/{{u[0]}}">
+    <button class="red_button" name="id" value="{{u[0]}}">Удалить</button>
+</a>
+
+{% endblock %}

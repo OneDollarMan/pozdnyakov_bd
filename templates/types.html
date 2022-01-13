@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="form_div">
+    <h3>Добавить тип</h3>
+    <form method="post" action="types/add">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <input type="text" name="name" placeholder="Название">
+        <input type="submit" value="Добавить">
+    </form>
+</div>
+
+<div class="table_div">
+    <h1>Список типов вещей</h1>
+    <table>
+        <tr>
+            <th>Номер</th>
+            <th>Название</th>
+            <th>Действия</th>
+        </tr>
+        {% for t in ts %}
+        <tr>
+            <td>{{t[0]}}</td>
+            <td>{{t[1]}}</td>
+            <td><a href="/types/rm/{{t[0]}}">×</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock %}

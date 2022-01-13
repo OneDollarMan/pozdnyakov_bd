@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<div class="form_div">
+    <h3>Добавить химчистку</h3>
+    <form method="post" action="cleanings/add">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <input type="text" name="name" placeholder="Название">
+        <input type="number" name="price" placeholder="Цена">
+        <input type="submit" value="Добавить">
+    </form>
+</div>
+
+<div class="table_div">
+    <h1>Список химчисток</h1>
+    <table>
+        <tr>
+            <th>Номер</th>
+            <th>Название</th>
+            <th>Цена</th>
+            <th>Действия</th>
+        </tr>
+        {% for c in cs %}
+        <tr>
+            <td>{{c[0]}}</td>
+            <td>{{c[1]}}</td>
+            <td>{{c[2]}}</td>
+            <td><a href="/cleanings/rm/{{c[0]}}">×</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock %}

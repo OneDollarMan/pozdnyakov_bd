@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="table_div">
+    <h1>Статистка по обороту</h1>
+    <table>
+        <tr>
+            <th>Дата</th>
+            <th>Количество заказов</th>
+            <th>Дневной оборот</th>
+        </tr>
+        {% for s in ss %}
+        <tr>
+            <td>{{s[0]}}</td>
+            <td>{{s[1]}}</td>
+            <td>{{s[2]}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock %}

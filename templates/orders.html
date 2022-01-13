@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if session.get('role') == 1 or session.get('role') == 3 %}
+<div class="form_div">
+    <h3>Добавить заказ</h3>
+    <form method="post" action="orders/add">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <select name="client">
+            <option disabled selected>Выберите клиента</option>
+            {% for c in cs %}
+            <option name="client" value="{{c[0]}}">{{c[1]}}</option>
+            {% endfor %}
+        </select>
+        <select name="type">
+            <option disabled selected>Выберите тип вещи</option>
+            {% for t in ts %}
+            <option name="type" value="{{t[0]}}">{{t[1]}}</option>
+            {% endfor %}
+        </select>
+        <input type="text" name="name" placeholder="Название вещи">
+        <select name="cleaning">
+            <option disabled selected>Выберите тип химчистки</option>
+            {% for cl in cls %}
+            <option name="cleaning" value="{{cl[0]}}">{{cl[1]}}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Добавить">
+    </form>
+</div>
+{% endif %}
+
+<div class="table_div">
+    <h1>Список заказов</h1>
+    <table>
+        <tr>
+            <th>Номер</th>
+            <th>Дата</th>
+            <th>Клиент</th>
+            <th>Тип вещи</th>
+            <th>Название</th>
+            <th>Тип химчистки</th>
+            <th>Статус</th>
+            <th>Действия</th>
+        </tr>
+        {% for o in os %}
+        <tr>
+            <td>{{o[0]}}</td>
+            <td>{{o[1]}}</td>
+            <td>{{o[9]}}</td>
+            <td>{{o[12]}}</td>
+            <td>{{o[4]}}</td>
+            <td>{{o[16]}}</td>
+            <td>
+                {% if session.role == 2 %}
+                <form method="post" action="orders/change">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <input type="hidden" value="{{o[0]}}" name="id">
+                    <select name="status">
+                        {% for s in sts %}
+                        {% if o[6] == s[0] %}
+                        <option selected value="{{s[0]}}">{{s[1]}}</option>
+                        {% else %}
+                        <option value="{{s[0]}}">{{s[1]}}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                    <input type="submit" value="Изменить">
+                </form>
+                {% else %}
+                {{o[20]}}
+                {% endif %}
+            </td>
+            <td><a href="/orders/rm/{{o[0]}}">×</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock %}
